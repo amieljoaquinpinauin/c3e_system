@@ -1,0 +1,42 @@
+#c3e_logo {
+    border-radius: 1rem 0 0 1rem;
+    height: 250px;
+    width: 330px;
+    margin-left: 55px;
+    margin-top: 180px;
+}
+
+body {
+	background-image: url('img/wallpaper2.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  }
+
+#FOL_container {
+    background-color: white; 
+    padding: 20px; 
+    margin-top: 90px; 
+    min-width: 300px; 
+    border-radius:1rem;
+  }
+
+#record_container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  margin-top: 250px;
+}
+
+#currentTime {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#currentDate {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#file_leave {
+  text-align: right;
+}
