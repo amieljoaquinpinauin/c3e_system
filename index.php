@@ -1,3 +1,37 @@
+<?php
+
+session_start(); // Start the session
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Your existing HTML body content goes here -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- ... Your existing navigation bar code ... -->
+</nav>
+
+</body>
+</html>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +61,8 @@
         <a class="nav-link" href="#">Daily Time Record <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">File for Leave</a>
-      </li>
+        <a class="nav-link" href="leave_list.php">File for Leave</a>
+    </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Supplies</a>
       </li>

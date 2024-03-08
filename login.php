@@ -1,4 +1,5 @@
 <?php
+session_start(); // Start the session
 include 'db_connection.php';
 
 // Check if the form is submitted
@@ -21,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Verify the password
         if ($password === $user['password']) {
-            // User is authenticated, you can redirect to a dashboard or set a session variable, etc.
+            // Start a session and store user information
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+
+            // Redirect to a dashboard or any other page after successful login
             header('Location: index.php');
             exit();
         } else {

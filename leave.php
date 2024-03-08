@@ -1,5 +1,8 @@
 <?php
+session_start(); // Start the session
 include 'db_connection.php';
+
+session_start(); // Start the session
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,20 +15,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reason = $_POST["reason"];
 
     // Insert data into file_leave table
-    $sql = "INSERT INTO file_leave (name, date, type, duration_from, duration_to, reason) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO file_leave (name, date, type, duration_from, duration_to, reason, status, position) VALUES (?, ?, ?, ?, ?, ?, 'pending', 'supervisor')";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssss", $name, $date, $leaveType, $durationFrom, $durationTo, $reason);
 
     if ($stmt->execute()) {
         echo "Leave request submitted successfully!";
+
+        // Get the ID of the last inserted row
+        $leaveRequestId = $stmt->insert_id;
+
+        // Workflow: Move to the next stage (e.g., 'HR') after supervisor approval
+        $nextPosition = 'HR';
+        $sqlUpdatePosition = "UPDATE file_leave SET position = ? WHERE id = ?";
+        $stmtUpdatePosition = $conn->prepare($sqlUpdatePosition);
+        $stmtUpdatePosition->bind_param("si", $nextPosition, $leaveRequestId);
+        
+        if ($stmtUpdatePosition->execute()) {
+            echo "Workflow: Move to $nextPosition stage.";
+        } else {
+            echo "Error updating position: " . $stmtUpdatePosition->error;
+        }
+
     } else {
         echo "Error: " . $stmt->error;
     }
 
     $stmt->close();
+    $stmtUpdatePosition->close();
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -45,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container" id = "FOL_container">
 <h2 class="mb-4"><b>FILE FOR LEAVE</b></h2>
 
-    <form method="POST" action="leave.php">
+    <form method="POST" action="leave.php" onsubmit="return validateForm()">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="name">Name:</label>
@@ -89,6 +110,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!-- Bootstrap Icons (Bi) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var date = document.getElementById("date").value;
+            var leaveType = document.getElementById("leaveType").value;
+            var durationFrom = document.getElementById("durationFrom").value;
+            var durationTo = document.getElementById("durationTo").value;
+            var reason = document.getElementById("reason").value;
+
+            if (name === "" || date === "" || leaveType === "" || durationFrom === "" || durationTo === "" || reason === "") {
+                alert("Please enter all information.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 
 </body>
 </html>
