@@ -25,14 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['requestId']) && isset($_
     if ($currentPosition === 'HR' && $nextPosition === 'Super Admin' && $status === 'pending') {
         // Allow HR to Super Admin only if the status is 'pending'
         $validTransition = true;
-    } elseif ($currentPosition === 'Super Admin' && ($nextPosition === 'approved' || $nextPosition === 'rejected') && $status === 'pending') {
+    } elseif ($currentPosition === 'Super Admin'&& ($status === 'approved' || $status === 'rejected') && $status === 'pending') {
         // Allow Super Admin to change status to 'approved' or 'rejected'
         $validTransition = true;
     }
 
     // Check if the user is lower than Super Admin and set status to 'pending'
-    if ($validTransition && $currentPosition !== 'Super Admin') {
+    if ($validTransition && $currentPosition !== 'Super Admin' && $status == 'approved') {
         $status = 'pending';
+    }
+    elseif ($validTransition && $currentPosition !== 'Super Admin' && $status == 'rejected') {
+        $status = 'rejected';
     }
 
     // Rest of the code remains the same

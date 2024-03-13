@@ -134,7 +134,7 @@ $conn->close();
                         <?php if (strcasecmp($userPosition, 'HR') === 0 || strcasecmp($userPosition, 'Super Admin') === 0) : ?>
                             <td>
                                 <button class="btn btn-success" onclick="approveLeave(<?php echo $request['id']; ?>, 'Super Admin')">Approve</button>
-                                <button class="btn btn-danger" onclick="rejectLeave(<?php echo $request['id']; ?>)">Reject</button>
+                                <button class="btn btn-danger" onclick="rejectLeave(<?php echo $request['id']; ?>, <?php echo '\'' . $userPosition . '\'';?>)">Reject</button>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -153,16 +153,16 @@ $conn->close();
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
 
 <script>
-    function rejectLeave(requestId) {
+    function rejectLeave(requestId, nextPosition) {
         // You can use AJAX to send a request to the server to handle the rejection logic
         // For simplicity, you can display an alert for demonstration purposes
         alert("Leave request from: " + requestId + " rejected.");
 
         // Update the status to 'rejected'
-        window.location.href = 'update_position.php?requestId=' + requestId + '&nextPosition=rejected&status=rejected';
+        window.location.href = 'update_position.php?requestId=' + requestId + '&nextPosition=' + nextPosition + '&status=rejected';
     }
 
-    // Existing functions for approval and status filter
+    // Existing functions for approval and status filter1
     function approveLeave(requestId, nextPosition) {
         alert("Leave request from: " + requestId + " approved for <?php echo $userPosition; ?>. Moving to " + nextPosition + ".");
         window.location.href = 'update_position.php?requestId=' + requestId + '&nextPosition=' + nextPosition + '&status=approved';
