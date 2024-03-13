@@ -2,8 +2,6 @@
 session_start(); // Start the session
 include 'db_connection.php';
 
-session_start(); // Start the session
-
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -20,8 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssss", $name, $date, $leaveType, $durationFrom, $durationTo, $reason);
 
     if ($stmt->execute()) {
-        echo "Leave request submitted successfully!";
-
         // Get the ID of the last inserted row
         $leaveRequestId = $stmt->insert_id;
 

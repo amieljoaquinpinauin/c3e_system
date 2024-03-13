@@ -87,6 +87,7 @@ $conn->close();
 </head>
 
 <body>
+<?php include 'navbar.php'; ?>
 
 <div class="container" id="leaveListContainer" style="background-color: white;">
     <h2 class="mb-4"><b>LEAVE REQUEST LIST (<?php echo $userPosition; ?>)</b></h2>

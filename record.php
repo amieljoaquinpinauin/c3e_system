@@ -1,51 +1,3 @@
-<?php
-session_start(); // Start the session
-include_once 'db_connection.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the values from the form
-    $lastName = $_POST['lastName'];
-    $firstName = $_POST['firstName'];
-
-    // Query to retrieve the full name and employee ID from the database
-    $sql = "SELECT id, CONCAT(last_name, ', ', first_name) AS full_name FROM employee WHERE last_name = '$lastName' AND first_name = '$firstName'";
-    $result = $your_db_connection_variable->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Fetch the result
-        $row = $result->fetch_assoc();
-        $employeeId = $row['id'];
-        $fullName = $row['full_name'];
-
-        // Display the full name
-        echo json_encode(array('fullName' => $fullName, 'employeeId' => $employeeId));
-        exit; // Stop further execution to prevent HTML output
-    } else {
-        echo json_encode(array('error' => 'No records found.'));
-        exit; // Stop further execution to prevent HTML output
-    }
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['action'])) {
-    // Handle time in action
-    if ($_GET['action'] == 'timeIn') {
-        // Get the employee ID from the request
-        $employeeId = $_GET['employeeId'];
-
-        // Insert the time in record into the database
-        $timeInSql = "INSERT INTO employee_time_records (employee_id, time_in) VALUES ($employeeId, NOW())";
-        $your_db_connection_variable->query($timeInSql);
-
-        echo json_encode(array('success' => 'Time In recorded.'));
-        exit;
-    }
-}
-
-// Close the database connection if needed
-// $your_db_connection_variable->close();
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-secondary"><i class="bi bi-check-circle"></i> File for Leave</button>
+            <button type="submit" class="btn btn-secondary" onclick="redirectToLogin()"> <i class="bi bi-check-circle"></i> Sign In</button>
+
             </div>
         </div>
     </div>
@@ -106,6 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- JavaScript for current time and date in Philippines timezone with month, day, year format -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    function redirectToLogin() {
+        window.location.href = 'login.html';
+    }
+</script>
 
 <script>
 
