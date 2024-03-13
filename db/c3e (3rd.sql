@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2024 at 02:48 AM
+-- Generation Time: Mar 13, 2024 at 05:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `employee` (
   `id` int(3) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `position` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `status` varchar(255) DEFAULT NULL,
   `time_in` datetime DEFAULT NULL,
@@ -44,8 +44,10 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`id`, `type`, `email`, `status`, `time_in`, `time_out`, `password`, `contact_number`, `last_name`, `first_name`) VALUES
-(1, 'Employee', 'admin@gmail.com', NULL, NULL, NULL, '1234', '0909090909', 'admin', 'amiel');
+INSERT INTO `employee` (`id`, `position`, `email`, `status`, `time_in`, `time_out`, `password`, `contact_number`, `last_name`, `first_name`) VALUES
+(2, 'Super Admin', 'admin@gmail.com', NULL, NULL, NULL, '123', '123456789', 'cj', 'de leon'),
+(3, 'hr', 'hr@gmail.com', NULL, NULL, NULL, '123', '123456789', 'admin', 'hr'),
+(4, 'supervisor', 'supervisor@gmail.com', NULL, NULL, NULL, '123', '123456789', 'admin', 'supervisor');
 
 -- --------------------------------------------------------
 
@@ -60,19 +62,22 @@ CREATE TABLE `file_leave` (
   `type` varchar(255) DEFAULT NULL,
   `duration_from` date DEFAULT NULL,
   `duration_to` date DEFAULT NULL,
-  `reason` text DEFAULT NULL
+  `reason` text DEFAULT NULL,
+  `status` varchar(255) DEFAULT 'pending',
+  `position` varchar(255) NOT NULL DEFAULT 'supervisor',
+  `current_position` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `file_leave`
 --
 
-INSERT INTO `file_leave` (`id`, `name`, `date`, `type`, `duration_from`, `duration_to`, `reason`) VALUES
-(1, 'amiel', '2024-03-07', 'personal', '2024-03-08', '2024-03-30', 'pagod na'),
-(2, 'cj', '2024-03-07', 'sick', '2024-03-15', '2024-05-10', 'may sakit'),
-(3, 'cj', '2024-03-07', 'sick', '2024-03-15', '2024-05-10', 'may sakit'),
-(4, 'cj', '2024-03-07', 'sick', '2024-03-15', '2024-05-10', 'may sakit'),
-(5, 'cj', '2024-03-07', 'sick', '2024-03-15', '2024-05-10', 'may sakit');
+INSERT INTO `file_leave` (`id`, `name`, `date`, `type`, `duration_from`, `duration_to`, `reason`, `status`, `position`, `current_position`) VALUES
+(1, 'amiel', '2024-03-07', 'personal', '2024-03-08', '2024-03-30', 'pagod na', 'approved', 'Super Admin', ''),
+(27, '444', '2024-03-08', 'sick', '2024-03-23', '1212-12-11', '444444', 'pending', 'Super Admin', NULL),
+(28, '53252321', '2024-03-12', 'sick', '2020-09-08', '2022-12-09', '443213', 'pending', 'hr', NULL),
+(30, '53252321', '2024-03-12', 'sick', '2020-09-08', '2022-12-09', '443213', 'pending', 'hr ', NULL),
+(31, 'teast weltjsnd', '2024-03-08', 'sick', '2024-03-10', '2024-03-07', 'r3qwrewqrwrtwerwerew', 'rejected', 'hr', '');
 
 -- --------------------------------------------------------
 
@@ -119,13 +124,13 @@ ALTER TABLE `record`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `file_leave`
 --
 ALTER TABLE `file_leave`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `record`
