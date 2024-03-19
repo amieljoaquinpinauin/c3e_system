@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Daily Time Record</title>
+    <title>C3E Daily Time Record</title>
 </head>
 <body>
 
@@ -13,9 +13,8 @@
     <div class="row">
         <!-- Left Column -->
         <div class="col-md-6">
-            <h2>Name: <span id="fullName"></span></h2>
-            <p>Status: <span id="status">In</span></p>
-            <p>Time: <span id="time">12:00 PM</span></p>
+            <!-- <p>Status: <span id="status">In</span></p>
+            <p>Date/Time: <span id="time"></span></p>-->
             <form method="post" action="record.php" id="searchForm">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -27,11 +26,15 @@
                         <input type="text" class="form-control" name="firstName" placeholder="Enter first name">
                     </div>
                 </div><br>
-                <button type="button" class="btn btn-outline-secondary" onclick="handleFormSubmission()">Search</button><br><br>
+                 <form method="post" action="record.php" id="searchForm">
+                    <!-- Your existing form content -->
+                        <button type="button" class="btn btn-outline-secondary" onclick="handleFormSubmission()">Search</button><br><br>
+                </form>
             </form>
         </div>
 
         <!-- Right Column -->
+        <h2>Name: <span id="fullName"></span></h2>
         <div class="col-md-6 text-center">
             <p id="currentDate" class="mb-1"></p>
             <p id="currentTime" class="mb-1"></p>
@@ -89,14 +92,42 @@ $.ajax({
     
 }
     
-    function handleFormSubmission() {
-        // Get the values from the form
-        var lastName = document.querySelector('input[name="lastName"]').value;
-        var firstName = document.querySelector('input[name="firstName"]').value;
+function handleFormSubmission() {
+    // Get the values from the form
+    var lastName = document.querySelector('input[name="lastName"]').value;
+    var firstName = document.querySelector('input[name="firstName"]').value;
 
-        // Update the full name
-        document.getElementById("fullName").innerHTML = lastName + ", " + firstName;
-    }
+    // Send an AJAX request to the server
+    $.ajax({
+        type: 'POST',
+        url: 'search_employee.php', // Change this to the appropriate server-side script
+        data: { lastName: lastName, firstName: firstName },
+        dataType: 'json',
+        success: function (response) {
+            if (response.success) {
+                // Employee exists, update the full name
+                document.getElementById("fullName").innerHTML = response.fullName;
+                document.getElementById("fullName").setAttribute("data-employee-id", response.employeeId);
+            
+            
+               // updateCurrentDateTime();
+            } else {
+                // Employee doesn't exist, show error message
+                alert(response.message);
+            }
+        },
+        error: function (error) {
+            console.error(error.responseText);
+        }
+    });
+}
+
+/*function updateCurrentDateTime() {
+    var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    var currentDateTime = new Date().toLocaleString('en-US', options);
+
+    document.getElementById("time").innerHTML = currentDateTime;
+}*/
 
     function updateDateTime() {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
