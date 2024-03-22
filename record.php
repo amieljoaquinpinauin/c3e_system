@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="c3e_style.css">
+    <link rel="stylesheet" href="design_web.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -34,8 +34,8 @@
         </div>
 
         <!-- Right Column -->
+        <div class="col-md-6">
         <h2>Name: <span id="fullName"></span></h2>
-        <div class="col-md-6 text-center">
             <p id="currentDate" class="mb-1"></p>
             <p id="currentTime" class="mb-1"></p>
             <img src="path/to/your/image.jpg" alt="User Image" class="img-fluid mt-3"> <br>

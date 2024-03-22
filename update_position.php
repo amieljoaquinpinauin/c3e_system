@@ -22,19 +22,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['requestId']) && isset($_
     // Validate the workflow transition based on the current and next positions
     $validTransition = true;
 
-    if ($currentPosition === 'HR' && $nextPosition === 'Super Admin' && $status === 'pending') {
+    if ($currentPosition === 'HR' && $nextPosition === 'super admin' && $status === 'pending') {
         // Allow HR to Super Admin only if the status is 'pending'
         $validTransition = true;
-    } elseif ($currentPosition === 'Super Admin'&& ($status === 'approved' || $status === 'rejected') && $status === 'pending') {
+    } elseif ($currentPosition === 'super admin'&& ($status === 'approved' || $status === 'rejected') && $status === 'pending') {
         // Allow Super Admin to change status to 'approved' or 'rejected'
         $validTransition = true;
     }
 
     // Check if the user is lower than Super Admin and set status to 'pending'
-    if ($validTransition && $currentPosition !== 'Super Admin' && $status == 'approved') {
+    if ($validTransition && $currentPosition !== 'super admin' && $status == 'approved') {
         $status = 'pending';
     }
-    elseif ($validTransition && $currentPosition !== 'Super Admin' && $status == 'rejected') {
+    elseif ($validTransition && $currentPosition !== 'super admin' && $status == 'rejected') {
         $status = 'rejected';
     }
 
