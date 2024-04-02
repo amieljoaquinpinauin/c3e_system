@@ -47,12 +47,12 @@
         <div class="col-md-8">
             <div class="d-flex justify-content-start">
             <a href="#" class="btn btn-success" onclick="handleTimeIn()">Time In</a>
-                <a href="#" class="btn btn-danger ml-2"><i class="bi bi-arrow-left"></i> Time Out</a>
+                <a href="#" class="btn btn-danger ml-2"> Time Out</a>
             </div>
         </div>
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-secondary" onclick="redirectToLogin()"> <i class="bi bi-check-circle"></i> Sign In</button>
+            <button type="submit" class="btn btn-secondary" onclick="redirectToLogin()"> Sign In</button>
 
             </div>
         </div>

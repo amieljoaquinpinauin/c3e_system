@@ -14,7 +14,7 @@
          left: 0;
          height: 100%;
          width: 250px;
-         background-color: #343a40; /* Dark background color */
+         background-color: #343a48; /* Dark background color */
          padding-top: 70px; /* Adjusted for the logo and brand */
          color: #fff; /* Text color */
       }
